@@ -2,8 +2,12 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/SportsStore",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:8085/",
+      "applicationUrl": "http://localhost:5000/",
       "sslPort": 0
     }
   },
