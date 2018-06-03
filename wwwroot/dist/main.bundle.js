@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "./ClientApp/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <td>{{product?.name}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>Category</th>\r\n        <td>{{product?.category}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>Description</th>\r\n        <td>{{product?.description}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>Price</th>\r\n        <td>{{product?.price}}</td>\r\n    </tr>\r\n</table>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th>Supplier</th>\r\n        <th>Rating</th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>{{product.supplier?.name || 'None'}}</td>\r\n        <td>{{product.ratings?.length || 0}}</td>\r\n    </tr>\r\n</table>\r\n"
 
 /***/ }),
 
@@ -67,6 +67,13 @@ var AppComponent = /** @class */ (function () {
     Object.defineProperty(AppComponent.prototype, "product", {
         get: function () {
             return this.repo.product;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AppComponent.prototype, "products", {
+        get: function () {
+            return this.repo.products;
         },
         enumerable: true,
         configurable: true
@@ -118,13 +125,33 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_5__models_model_module__["a" /* ModelModule */]
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_5__models_model_module__["a" /* ModelModule */]
             ],
             providers: [],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/models/configClasses.repository.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Filter; });
+var Filter = /** @class */ (function () {
+    function Filter() {
+        this.related = false;
+    }
+    Filter.prototype.reset = function () {
+        this.category = this.search = null;
+        this.related = false;
+    };
+    return Filter;
 }());
 
 
@@ -164,10 +191,63 @@ var ModelModule = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Repository; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__configClasses_repository__ = __webpack_require__("./ClientApp/app/models/configClasses.repository.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var productsUrl = "api/products";
 var Repository = /** @class */ (function () {
-    function Repository() {
-        this.product = JSON.parse(document.getElementById("data").textContent);
+    function Repository(http) {
+        this.http = http;
+        this.filterObject = new __WEBPACK_IMPORTED_MODULE_3__configClasses_repository__["a" /* Filter */]();
+        this.filter.category = "soccer";
+        this.filter.related = true;
+        this.getProducts();
     }
+    Repository.prototype.getProduct = function (id) {
+        var _this = this;
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, productsUrl + "/" + id).subscribe(function (response) {
+            _this.product = response;
+        });
+    };
+    Repository.prototype.getProducts = function () {
+        var _this = this;
+        var url = productsUrl + "?related=" + this.filter.related;
+        if (this.filter.category) {
+            url += "&category=" + this.filter.category;
+        }
+        if (this.filter.search) {
+            url += "&search=" + this.filter.search;
+        }
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Get, url).subscribe(function (response) { return _this.products = response; });
+    };
+    Repository.prototype.sendRequest = function (verb, url, data) {
+        return this.http.request(new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Request */]({ method: verb, url: url, body: data })).map(function (response) { return response.json(); });
+    };
+    Object.defineProperty(Repository.prototype, "filter", {
+        get: function () {
+            return this.filterObject;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Repository = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
+    ], Repository);
     return Repository;
 }());
 

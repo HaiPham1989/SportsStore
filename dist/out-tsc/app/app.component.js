@@ -22,6 +22,13 @@ var AppComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(AppComponent.prototype, "products", {
+        get: function () {
+            return this.repo.products;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',

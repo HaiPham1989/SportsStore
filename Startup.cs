@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
+using Newtonsoft.Json;
 
 namespace SportsStore
 {
@@ -26,7 +27,13 @@ namespace SportsStore
         {
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration["Data:Products:ConnectionString"]));
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(
+                opts =>
+                {
+                    opts.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+                    opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

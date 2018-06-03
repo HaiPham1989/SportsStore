@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\models\configClasses.repository.ts" />
     <None Remove="ClientApp\app\models\model.module.ts" />
     <None Remove="ClientApp\app\models\repository.ts" />
   </ItemGroup>
@@ -22,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\models\configClasses.repository.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\model.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\repository.ts" />
   </ItemGroup>
