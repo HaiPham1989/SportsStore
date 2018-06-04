@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using SportsStore.Models.BindingTargets;
 
 namespace SportsStore.Controllers
 {
@@ -80,6 +81,25 @@ namespace SportsStore.Controllers
             else
             {
                 return query;
+            }
+        }
+
+        public IActionResult CreateProduct([FromBody] ProductData pdata)
+        {
+            if (ModelState.IsValid)
+            {
+                Product p = pdata.Product;
+                if (p.Supplier != null && p.Supplier.SupplierId != 0)
+                {
+                    _context.Attach(p.Supplier);
+                }
+                _context.Add(p);
+                _context.SaveChanges();
+                return Ok(p.ProductId);
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
     }

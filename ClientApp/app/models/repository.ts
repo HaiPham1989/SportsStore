@@ -4,15 +4,17 @@ import { Http, RequestMethod, Request, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import { Filter } from "./configClasses.repository";
+import { Supplier } from "./supplier.model";
 
 const productsUrl = "api/products";
+const suppliersUrl = "api/suppliers";
 
 @Injectable()
 export class Repository {
     private filterObject = new Filter();
 
     constructor(private http: Http) {
-        this.filter.category = "soccer";
+        //this.filter.category = "soccer";
         this.filter.related = true;
         this.getProducts();
     }
@@ -39,8 +41,28 @@ export class Repository {
         return this.http.request(new Request({ method: verb, url: url, body: data })).map(response => response.json());
     }
 
+    getSuppliers() {
+        this.sendRequest(RequestMethod.Get, suppliersUrl).subscribe(response => this.suppliers = response);
+    }
+
+    createProduct(prod: Product) {
+        let data = {
+            name: prod.name,
+            category: prod.category,
+            description: prod.description,
+            price: prod.price,
+            supplier: prod.supplier ? prod.supplier.supplierId : 0
+        };
+
+        this.sendRequest(RequestMethod.Post, productsUrl, data).subscribe(response => {
+            prod.productId = response;
+            this.products.push(prod);
+        })
+    }
+
     product: Product;
     products: Product[];
+    suppliers: Supplier[] = [];
 
     get filter(): Filter {
         return this.filterObject;
