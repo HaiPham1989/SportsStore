@@ -22,7 +22,7 @@ namespace SportsStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateSupplier([FromBody]SupplierData sdata)
+        public IActionResult CreateSupplier([FromBody] SupplierData sdata)
         {
             if (ModelState.IsValid)
             {
@@ -30,6 +30,23 @@ namespace SportsStore.Controllers
                 _context.Add(s);
                 _context.SaveChanges();
                 return Ok(s.SupplierId);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult ReplaceSupplier(long id, [FromBody] SupplierData sdata)
+        {
+            if (ModelState.IsValid)
+            {
+                Supplier s = sdata.Supplier;
+                s.SupplierId = id;
+                _context.Update(s);
+                _context.SaveChanges();
+                return Ok(s);
             }
             else
             {

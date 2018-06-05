@@ -37,10 +37,6 @@ export class Repository {
         this.sendRequest(RequestMethod.Get, url).subscribe(response => this.products = response);
     }
 
-    private sendRequest(verb: RequestMethod, url: string, data?: any): Observable<any> {
-        return this.http.request(new Request({ method: verb, url: url, body: data })).map(response => response.json());
-    }
-
     getSuppliers() {
         this.sendRequest(RequestMethod.Get, suppliersUrl).subscribe(response => this.suppliers = response);
     }
@@ -58,6 +54,49 @@ export class Repository {
             prod.productId = response;
             this.products.push(prod);
         })
+    }
+
+    createProductAndSupplier(prod: Product, supp: Supplier) {
+        let data = {
+            name: supp.name,
+            city: supp.city,
+            state: supp.state
+        };
+
+        this.sendRequest(RequestMethod.Post, suppliersUrl, data).subscribe(response => {
+            supp.supplierId = response;
+            prod.supplier = supp;
+            this.suppliers.push(supp);
+            if (prod != null) {
+                this.createProduct(prod);
+            }
+        })
+    }
+
+    replaceProduct(prod: Product) {
+        let data = {
+            name: prod.name,
+            category: prod.category,
+            description: prod.description,
+            price: prod.price,
+            supplier: prod.supplier ? prod.supplier.supplierId : 0
+        }
+        this.sendRequest(RequestMethod.Put, productsUrl + "/" + prod.productId, data).subscribe(response => this.getProducts());
+    }
+
+    replaceSupplier(supp: Supplier) {
+        let data = {
+            name: supp.name,
+            city: supp.city,
+            state: supp.state
+        };
+        this.sendRequest(RequestMethod.Put, suppliersUrl + "/" + supp.supplierId, data).subscribe(response => this.getProducts());
+    }
+
+    private sendRequest(verb: RequestMethod, url: string, data?: any): Observable<any> {
+        return this.http.request(new Request({ method: verb, url: url, body: data })).map(response => {
+            return response.headers.get("Content-Length") != "0" ? response.json() : null;
+        });
     }
 
     product: Product;

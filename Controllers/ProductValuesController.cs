@@ -46,6 +46,7 @@ namespace SportsStore.Controllers
             return result;
         }
 
+        [HttpGet]
         public IEnumerable<Product> GetProducts(string category, string search, bool related = false)
         {
             IQueryable<Product> query = _context.Products;
@@ -84,6 +85,7 @@ namespace SportsStore.Controllers
             }
         }
 
+        [HttpPost]
         public IActionResult CreateProduct([FromBody] ProductData pdata)
         {
             if (ModelState.IsValid)
@@ -96,6 +98,27 @@ namespace SportsStore.Controllers
                 _context.Add(p);
                 _context.SaveChanges();
                 return Ok(p.ProductId);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult ReplaceProduct(long id, [FromBody] ProductData pdata)
+        {
+            if (ModelState.IsValid)
+            {
+                Product p = pdata.Product;
+                p.ProductId = id;
+                if (p.Supplier != null && p.Supplier.SupplierId != 0)
+                {
+                    _context.Attach(p.Supplier);
+                }
+                _context.Update(p);
+                _context.SaveChanges();
+                return Ok(p);
             }
             else
             {
