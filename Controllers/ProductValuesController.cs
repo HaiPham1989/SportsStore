@@ -4,6 +4,7 @@ using SportsStore.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using SportsStore.Models.BindingTargets;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace SportsStore.Controllers
 {
@@ -119,6 +120,28 @@ namespace SportsStore.Controllers
                 _context.Update(p);
                 _context.SaveChanges();
                 return Ok(p);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdateProduct(long id, [FromBody] JsonPatchDocument<ProductData> patch)
+        {
+            Product product = _context.Products.Include(p => p.Supplier).First(p => p.ProductId == id);
+            ProductData pdata = new ProductData { Product = product };
+            patch.ApplyTo(pdata, ModelState);
+
+            if (ModelState.IsValid && TryValidateModel(pdata))
+            {
+                if (product.Supplier != null && product.Supplier.SupplierId != 0)
+                {
+                    _context.Attach(product.Supplier);
+                }
+                _context.SaveChanges();
+                return Ok(product);
             }
             else
             {

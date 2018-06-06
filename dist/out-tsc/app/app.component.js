@@ -49,6 +49,12 @@ var AppComponent = /** @class */ (function () {
         var s = new supplier_model_1.Supplier(3, "Modified Supplier", "New York", "NY");
         this.repo.replaceSupplier(s);
     };
+    AppComponent.prototype.updateProduct = function () {
+        var changes = new Map();
+        changes.set("name", "Green Kayak");
+        changes.set("supplier", null);
+        this.repo.updateProduct(1, changes);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',

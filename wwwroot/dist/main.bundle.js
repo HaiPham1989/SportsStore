@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "./ClientApp/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th>Supplier</th>\r\n        <th>Rating</th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>{{product.supplier?.name || 'None'}}</td>\r\n        <td>{{product.ratings?.length || 0}}</td>\r\n    </tr>\r\n</table>\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProduct()\">\r\n    Create Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProductAndSupplier()\">\r\n    Create Product and Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"replaceProduct()\">\r\n    Replace Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"replaceSupplier()\">\r\n    Replace Supplier\r\n</button>"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th>Supplier</th>\r\n        <th>Rating</th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>{{product.supplier?.name || 'None'}}</td>\r\n        <td>{{product.ratings?.length || 0}}</td>\r\n    </tr>\r\n</table>\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProduct()\">\r\n    Create Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProductAndSupplier()\">\r\n    Create Product and Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"replaceProduct()\">\r\n    Replace Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"replaceSupplier()\">\r\n    Replace Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"updateProduct()\">\r\n    Update Product\r\n</button>"
 
 /***/ }),
 
@@ -99,6 +99,12 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.replaceSupplier = function () {
         var s = new __WEBPACK_IMPORTED_MODULE_3__models_supplier_model__["a" /* Supplier */](3, "Modified Supplier", "New York", "NY");
         this.repo.replaceSupplier(s);
+    };
+    AppComponent.prototype.updateProduct = function () {
+        var changes = new Map();
+        changes.set("name", "Green Kayak");
+        changes.set("supplier", null);
+        this.repo.updateProduct(1, changes);
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -333,6 +339,14 @@ var Repository = /** @class */ (function () {
             state: supp.state
         };
         this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Put, suppliersUrl + "/" + supp.supplierId, data).subscribe(function (response) { return _this.getProducts(); });
+    };
+    Repository.prototype.updateProduct = function (id, changes) {
+        var _this = this;
+        var patch = [];
+        changes.forEach(function (value, key) { return patch.push({
+            op: "replace", path: key, value: value
+        }); });
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Patch, productsUrl + "/" + id, patch).subscribe(function (response) { return _this.getProducts(); });
     };
     Repository.prototype.sendRequest = function (verb, url, data) {
         return this.http.request(new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Request */]({ method: verb, url: url, body: data })).map(function (response) {

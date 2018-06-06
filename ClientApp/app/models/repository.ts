@@ -93,6 +93,14 @@ export class Repository {
         this.sendRequest(RequestMethod.Put, suppliersUrl + "/" + supp.supplierId, data).subscribe(response => this.getProducts());
     }
 
+    updateProduct(id: number, changes: Map<string, any>) {
+        let patch = [];
+        changes.forEach((value, key) => patch.push({
+            op: "replace", path: key, value: value
+        }));
+        this.sendRequest(RequestMethod.Patch, productsUrl + "/" + id, patch).subscribe(response => this.getProducts());
+    }
+
     private sendRequest(verb: RequestMethod, url: string, data?: any): Observable<any> {
         return this.http.request(new Request({ method: verb, url: url, body: data })).map(response => {
             return response.headers.get("Content-Length") != "0" ? response.json() : null;

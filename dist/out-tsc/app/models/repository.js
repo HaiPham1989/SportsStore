@@ -95,6 +95,14 @@ var Repository = /** @class */ (function () {
         };
         this.sendRequest(http_1.RequestMethod.Put, suppliersUrl + "/" + supp.supplierId, data).subscribe(function (response) { return _this.getProducts(); });
     };
+    Repository.prototype.updateProduct = function (id, changes) {
+        var _this = this;
+        var patch = [];
+        changes.forEach(function (value, key) { return patch.push({
+            op: "replace", path: key, value: value
+        }); });
+        this.sendRequest(http_1.RequestMethod.Patch, productsUrl + "/" + id, patch).subscribe(function (response) { return _this.getProducts(); });
+    };
     Repository.prototype.sendRequest = function (verb, url, data) {
         return this.http.request(new http_1.Request({ method: verb, url: url, body: data })).map(function (response) {
             return response.headers.get("Content-Length") != "0" ? response.json() : null;
