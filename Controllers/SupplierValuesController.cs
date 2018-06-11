@@ -53,5 +53,13 @@ namespace SportsStore.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSupplier(long id)
+        {
+            _context.Remove(new Supplier { SupplierId = id });
+            _context.SaveChanges();
+            return Ok(id);
+        }
     }
 }

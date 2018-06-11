@@ -55,6 +55,12 @@ var AppComponent = /** @class */ (function () {
         changes.set("supplier", null);
         this.repo.updateProduct(1, changes);
     };
+    AppComponent.prototype.deleteProduct = function () {
+        this.repo.deleteProduct(1);
+    };
+    AppComponent.prototype.deleteSupplier = function () {
+        this.repo.deleteSupplier(2);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',

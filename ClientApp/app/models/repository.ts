@@ -101,6 +101,14 @@ export class Repository {
         this.sendRequest(RequestMethod.Patch, productsUrl + "/" + id, patch).subscribe(response => this.getProducts());
     }
 
+    deleteProduct(id: number) {
+        this.sendRequest(RequestMethod.Delete, productsUrl + "/" + id).subscribe(response => this.getProducts());
+    }
+
+    deleteSupplier(id: number) {
+        this.sendRequest(RequestMethod.Delete, suppliersUrl + "/" + id).subscribe(response => this.getSuppliers());
+    }
+
     private sendRequest(verb: RequestMethod, url: string, data?: any): Observable<any> {
         return this.http.request(new Request({ method: verb, url: url, body: data })).map(response => {
             return response.headers.get("Content-Length") != "0" ? response.json() : null;

@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "./ClientApp/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n<table class=\"table table-sm table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th>Supplier</th>\r\n        <th>Rating</th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>{{product.supplier?.name || 'None'}}</td>\r\n        <td>{{product.ratings?.length || 0}}</td>\r\n    </tr>\r\n</table>\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProduct()\">\r\n    Create Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"createProductAndSupplier()\">\r\n    Create Product and Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"replaceProduct()\">\r\n    Replace Product\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"replaceSupplier()\">\r\n    Replace Supplier\r\n</button>\r\n<button class=\"btn btn-primary m-1\" (click)=\"updateProduct()\">\r\n    Update Product\r\n</button>"
+module.exports = "<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"col\">\r\n            <category-filter></category-filter>\r\n            <product-table></product-table>\r\n        </div>\r\n        <div class=\"col\">\r\n            <product-detail></product-detail>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -106,8 +106,14 @@ var AppComponent = /** @class */ (function () {
         changes.set("supplier", null);
         this.repo.updateProduct(1, changes);
     };
+    AppComponent.prototype.deleteProduct = function () {
+        this.repo.deleteProduct(1);
+    };
+    AppComponent.prototype.deleteSupplier = function () {
+        this.repo.deleteSupplier(2);
+    };
     AppComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
             template: __webpack_require__("./ClientApp/app/app.component.html"),
             styles: [__webpack_require__("./ClientApp/app/app.component.css")]
@@ -132,6 +138,10 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("./ClientApp/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_model_module__ = __webpack_require__("./ClientApp/app/models/model.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__structure_productTable_component__ = __webpack_require__("./ClientApp/app/structure/productTable.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__structure_categoryFilter_component__ = __webpack_require__("./ClientApp/app/structure/categoryFilter.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__structure_productDetail_component__ = __webpack_require__("./ClientApp/app/structure/productDetail.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_routing__ = __webpack_require__("./ClientApp/app/app.routing.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -144,16 +154,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["E" /* NgModule */])({
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]
+                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_6__structure_productTable_component__["a" /* ProductTableComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__structure_categoryFilter_component__["a" /* CategoryFilterComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__structure_productDetail_component__["a" /* ProductDetailComponent */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_5__models_model_module__["a" /* ModelModule */]
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_5__models_model_module__["a" /* ModelModule */], __WEBPACK_IMPORTED_MODULE_9__app_routing__["a" /* RoutingConfig */]
             ],
             providers: [],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
@@ -162,6 +179,27 @@ var AppModule = /** @class */ (function () {
     return AppModule;
 }());
 
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/app.routing.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RoutingConfig; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__structure_productTable_component__ = __webpack_require__("./ClientApp/app/structure/productTable.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__structure_productDetail_component__ = __webpack_require__("./ClientApp/app/structure/productDetail.component.ts");
+
+
+
+var routes = [
+    { path: "table", component: __WEBPACK_IMPORTED_MODULE_1__structure_productTable_component__["a" /* ProductTableComponent */] },
+    { path: "detail/:id", component: __WEBPACK_IMPORTED_MODULE_2__structure_productDetail_component__["a" /* ProductDetailComponent */] },
+    { path: "", component: __WEBPACK_IMPORTED_MODULE_1__structure_productTable_component__["a" /* ProductTableComponent */] }
+];
+var RoutingConfig = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule */].forRoot(routes);
 
 
 /***/ }),
@@ -205,7 +243,7 @@ var ModelModule = /** @class */ (function () {
     function ModelModule() {
     }
     ModelModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* NgModule */])({ providers: [__WEBPACK_IMPORTED_MODULE_1__repository__["a" /* Repository */]] })
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({ providers: [__WEBPACK_IMPORTED_MODULE_1__repository__["a" /* Repository */]] })
     ], ModelModule);
     return ModelModule;
 }());
@@ -348,6 +386,14 @@ var Repository = /** @class */ (function () {
         }); });
         this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Patch, productsUrl + "/" + id, patch).subscribe(function (response) { return _this.getProducts(); });
     };
+    Repository.prototype.deleteProduct = function (id) {
+        var _this = this;
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Delete, productsUrl + "/" + id).subscribe(function (response) { return _this.getProducts(); });
+    };
+    Repository.prototype.deleteSupplier = function (id) {
+        var _this = this;
+        this.sendRequest(__WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Delete, suppliersUrl + "/" + id).subscribe(function (response) { return _this.getSuppliers(); });
+    };
     Repository.prototype.sendRequest = function (verb, url, data) {
         return this.http.request(new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Request */]({ method: verb, url: url, body: data })).map(function (response) {
             return response.headers.get("Content-Length") != "0" ? response.json() : null;
@@ -361,7 +407,7 @@ var Repository = /** @class */ (function () {
         configurable: true
     });
     Repository = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
     ], Repository);
     return Repository;
@@ -384,6 +430,170 @@ var Supplier = /** @class */ (function () {
         this.state = state;
     }
     return Supplier;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/structure/categoryFilter.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"m-1\">\r\n    <button class=\"btn btn-primary\" (click)=\"setCategory('soccer')\">Soccer</button>\r\n    <button class=\"btn btn-primary\" (click)=\"setCategory(chessCategory)\">Chess</button>\r\n    <button class=\"btn btn-primary\" (click)=\"setCategory('Water' + 'Sports')\">Watersports</button>\r\n    <button class=\"btn btn-primary\" (click)=\"setCategory(null)\">All</button>\r\n</div>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/structure/categoryFilter.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CategoryFilterComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CategoryFilterComponent = /** @class */ (function () {
+    function CategoryFilterComponent(repo) {
+        this.repo = repo;
+        this.chessCategory = "chess";
+    }
+    CategoryFilterComponent.prototype.setCategory = function (category) {
+        this.repo.filter.category = category;
+        this.repo.getProducts();
+    };
+    CategoryFilterComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "category-filter",
+            template: __webpack_require__("./ClientApp/app/structure/categoryFilter.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]])
+    ], CategoryFilterComponent);
+    return CategoryFilterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/structure/productDetail.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<table class=\"table table-striped\">\r\n    <tr>\r\n        <th colspan=\"2\" class=\"bg-info\">Product</th>\r\n    </tr>\r\n    <tr>\r\n        <th>Name</th>\r\n        <td>{{product?.name || 'No Data'}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>Category</th>\r\n        <td>{{product?.category || 'No Data'}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>Description</th>\r\n        <td>{{product?.description || 'No Data'}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>Price</th>\r\n        <td>{{product?.price  || 'No Data'}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th colspan=\"2\" class=\"bg-info\">Supplier</th>\r\n    </tr>\r\n    <tr>\r\n        <th>Name</th>\r\n        <td>{{product?.supplier?.name}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>City</th>\r\n        <td>{{product?.supplier?.city}}</td>\r\n    </tr>\r\n    <tr>\r\n        <th>State</th>\r\n        <td>{{product?.supplier?.state}}</td>\r\n    </tr>\r\n</table>\r\n<div class=\"text-center\">\r\n    <button class=\"btn btn-primary\" routerLink=\"/table\">Back</button>\r\n</div>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/structure/productDetail.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductDetailComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ProductDetailComponent = /** @class */ (function () {
+    function ProductDetailComponent(repo, router, activeRoute) {
+        this.repo = repo;
+        var id = Number.parseInt(activeRoute.snapshot.params["id"]);
+        if (id) {
+            this.repo.getProduct(id);
+        }
+        else {
+            router.navigateByUrl("/");
+        }
+    }
+    Object.defineProperty(ProductDetailComponent.prototype, "product", {
+        get: function () {
+            return this.repo.product;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProductDetailComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "product-detail",
+            template: __webpack_require__("./ClientApp/app/structure/productDetail.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]])
+    ], ProductDetailComponent);
+    return ProductDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/structure/productTable.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<table class=\"table table-striped\">\r\n    <tr>\r\n        <th>Name</th>\r\n        <th>Category</th>\r\n        <th>Price</th>\r\n        <th></th>\r\n    </tr>\r\n    <tr *ngFor=\"let product of products\">\r\n        <td>{{product.name}}</td>\r\n        <td>{{product.category}}</td>\r\n        <td>{{product.price}}</td>\r\n        <td>\r\n            <button class=\"btn btn-primary btn-sm\" (click)=\"selectProduct(product.productId)\">Details</button>\r\n        </td>\r\n    </tr>\r\n</table>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/structure/productTable.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductTableComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ProductTableComponent = /** @class */ (function () {
+    function ProductTableComponent(repo, router) {
+        this.repo = repo;
+        this.router = router;
+    }
+    Object.defineProperty(ProductTableComponent.prototype, "products", {
+        get: function () {
+            return this.repo.products;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProductTableComponent.prototype.selectProduct = function (id) {
+        this.repo.getProduct(id);
+        this.router.navigateByUrl("/detail");
+    };
+    ProductTableComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "product-table",
+            template: __webpack_require__("./ClientApp/app/structure/productTable.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
+    ], ProductTableComponent);
+    return ProductTableComponent;
 }());
 
 

@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\app.routing.ts" />
     <None Remove="ClientApp\app\models\configClasses.repository.ts" />
     <None Remove="ClientApp\app\models\model.module.ts" />
     <None Remove="ClientApp\app\models\repository.ts" />
+    <None Remove="ClientApp\app\structure\categoryFilter.component.ts" />
+    <None Remove="ClientApp\app\structure\productDetail.component.ts" />
+    <None Remove="ClientApp\app\structure\productTable.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,9 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\app.routing.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\configClasses.repository.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\model.module.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\repository.ts" />
+    <TypeScriptCompile Include="ClientApp\app\structure\categoryFilter.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\structure\productDetail.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\structure\productTable.component.ts" />
   </ItemGroup>
 
 </Project>

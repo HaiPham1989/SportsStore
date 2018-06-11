@@ -103,6 +103,14 @@ var Repository = /** @class */ (function () {
         }); });
         this.sendRequest(http_1.RequestMethod.Patch, productsUrl + "/" + id, patch).subscribe(function (response) { return _this.getProducts(); });
     };
+    Repository.prototype.deleteProduct = function (id) {
+        var _this = this;
+        this.sendRequest(http_1.RequestMethod.Delete, productsUrl + "/" + id).subscribe(function (response) { return _this.getProducts(); });
+    };
+    Repository.prototype.deleteSupplier = function (id) {
+        var _this = this;
+        this.sendRequest(http_1.RequestMethod.Delete, suppliersUrl + "/" + id).subscribe(function (response) { return _this.getSuppliers(); });
+    };
     Repository.prototype.sendRequest = function (verb, url, data) {
         return this.http.request(new http_1.Request({ method: verb, url: url, body: data })).map(function (response) {
             return response.headers.get("Content-Length") != "0" ? response.json() : null;

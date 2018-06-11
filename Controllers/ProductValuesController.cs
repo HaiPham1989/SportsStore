@@ -148,5 +148,13 @@ namespace SportsStore.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(long id)
+        {
+            _context.Products.Remove(new Product { ProductId = id });
+            _context.SaveChanges();
+            return Ok(id);
+        }
     }
 }
