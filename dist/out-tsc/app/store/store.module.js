@@ -8,19 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-//import { CartSummaryComponent } from "./cartSummary.component";
-//import { CategoryFilterComponent } from "./categoryFilter.component";
-//import { PaginationComponent } from "./pagination.component";
-//import { ProductListComponent } from "./productList.component";
-//import { RatingsComponent } from "./ratings.component";
+var cartSummary_component_1 = require("./cartSummary.component");
+var categoryFilter_component_1 = require("./categoryFilter.component");
+var pagination_component_1 = require("./pagination.component");
+var productList_component_1 = require("./productList.component");
+var ratings_component_1 = require("./ratings.component");
 var productSelection_component_1 = require("./productSelection.component");
 var StoreModule = /** @class */ (function () {
     function StoreModule() {
     }
     StoreModule = __decorate([
         core_1.NgModule({
-            //declarations: [CartSummaryComponent, CategoryFilterComponent, PaginationComponent, ProductListComponent, RatingsComponent, ProductSelectionComponent],
-            declarations: [productSelection_component_1.ProductSelectionComponent],
+            declarations: [cartSummary_component_1.CartSummaryComponent, categoryFilter_component_1.CategoryFilterComponent, pagination_component_1.PaginationComponent, productList_component_1.ProductListComponent, ratings_component_1.RatingsComponent, productSelection_component_1.ProductSelectionComponent],
             imports: [platform_browser_1.BrowserModule],
             exports: [productSelection_component_1.ProductSelectionComponent]
         })

@@ -90,7 +90,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7aaab207595933b8777f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e02e264ced2542e971ad"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1863,7 +1863,6 @@ var options = {
   name: '',
   autoConnect: true,
   overlayStyles: {},
-  overlayWarnings: false,
   ansiColors: {}
 };
 if (true) {
@@ -1915,10 +1914,6 @@ function setOverrides(overrides) {
 
   if (overrides.ansiColors) options.ansiColors = JSON.parse(overrides.ansiColors);
   if (overrides.overlayStyles) options.overlayStyles = JSON.parse(overrides.overlayStyles);
-
-  if (overrides.overlayWarnings) {
-    options.overlayWarnings = overrides.overlayWarnings == 'true';
-  }
 }
 
 function EventSourceWrapper() {
@@ -2057,14 +2052,7 @@ function createReporter() {
       if (options.warn) {
         log(type, obj);
       }
-      if (overlay) {
-        if (options.overlayWarnings || type === 'errors') {
-          overlay.showProblems(type, obj[type]);
-          return false;
-        }
-        overlay.clear();
-      }
-      return true;
+      if (overlay && type !== 'warnings') overlay.showProblems(type, obj[type]);
     },
     success: function() {
       if (overlay) overlay.clear();
@@ -2101,22 +2089,17 @@ function processMessage(obj) {
       if (obj.name && options.name && obj.name !== options.name) {
         return;
       }
-      var applyUpdate = true;
       if (obj.errors.length > 0) {
         if (reporter) reporter.problems('errors', obj);
-        applyUpdate = false;
-      } else if (obj.warnings.length > 0) {
-        if (reporter) {
-          var overlayShown = reporter.problems('warnings', obj);
-          applyUpdate = overlayShown;
-        }
       } else {
         if (reporter) {
-          reporter.cleanProblemsCache();
+          if (obj.warnings.length > 0) {
+            reporter.problems('warnings', obj);
+          } else {
+            reporter.cleanProblemsCache();
+          }
           reporter.success();
         }
-      }
-      if (applyUpdate) {
         processUpdate(obj.hash, obj.modules, options);
       }
       break;

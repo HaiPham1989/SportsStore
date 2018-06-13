@@ -436,10 +436,182 @@ var Supplier = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./ClientApp/app/store/cartSummary.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h5>Placeholder: Cart Summary</h5>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/cartSummary.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartSummaryComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var CartSummaryComponent = /** @class */ (function () {
+    function CartSummaryComponent() {
+    }
+    CartSummaryComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "store-cartsummary",
+            template: __webpack_require__("./ClientApp/app/store/cartSummary.component.html")
+        })
+    ], CartSummaryComponent);
+    return CartSummaryComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/categoryFilter.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Placeholder: Category Filter</h3>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/categoryFilter.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CategoryFilterComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CategoryFilterComponent = /** @class */ (function () {
+    function CategoryFilterComponent(repo) {
+        this.repo = repo;
+    }
+    CategoryFilterComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "store-categoryfilter",
+            template: __webpack_require__("./ClientApp/app/store/categoryFilter.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]])
+    ], CategoryFilterComponent);
+    return CategoryFilterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/pagination.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Placeholder: Page Controls</h3>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/pagination.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PaginationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PaginationComponent = /** @class */ (function () {
+    function PaginationComponent(repo) {
+        this.repo = repo;
+    }
+    PaginationComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "store-pagination",
+            template: __webpack_require__("./ClientApp/app/store/pagination.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]])
+    ], PaginationComponent);
+    return PaginationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/productList.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Placeholder: Product List</h3>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/productList.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_repository__ = __webpack_require__("./ClientApp/app/models/repository.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ProductListComponent = /** @class */ (function () {
+    function ProductListComponent(repo) {
+        this.repo = repo;
+    }
+    Object.defineProperty(ProductListComponent.prototype, "products", {
+        get: function () {
+            return this.repo.products;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ProductListComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "store-product-list",
+            template: __webpack_require__("./ClientApp/app/store/productList.component.html")
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__models_repository__["a" /* Repository */]])
+    ], ProductListComponent);
+    return ProductListComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./ClientApp/app/store/productSelection.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"navbar bg-inverse\">\r\n    <div class=\"row\">\r\n        <div class=\"col\">\r\n            <a class=\"navbar-brand text-white\">\r\n                SPORTS STORE\r\n            </a>\r\n        </div>\r\n        <!--<div class=\"col text-white mr-1\">\r\n            <store-cartsummary></store-cartsummary>\r\n        </div>-->\r\n    </div>\r\n</div>\r\n<!--<div class=\"row no-gutters\">\r\n    <div class=\"col-3\">\r\n        <store-categoryfilter></store-categoryfilter>\r\n    </div>\r\n    <div class=\"col\">\r\n        <store-product-list></store-product-list>\r\n        <store-pagination></store-pagination>\r\n    </div>\r\n</div>-->\r\n"
+module.exports = "<div class=\"navbar bg-inverse\">\r\n    <div class=\"row\">\r\n        <div class=\"col\">\r\n            <a class=\"navbar-brand text-white\">\r\n                SPORTS STORE\r\n            </a> \r\n        </div>\r\n        <div class=\"col text-white mr-1\">\r\n            <store-cartsummary></store-cartsummary>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"row no-gutters\">\r\n    <div class=\"col-3\">\r\n        <store-categoryfilter></store-categoryfilter>\r\n    </div>\r\n    <div class=\"col\">\r\n        <store-product-list></store-product-list>\r\n        <store-pagination></store-pagination>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -472,6 +644,42 @@ var ProductSelectionComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./ClientApp/app/store/ratings.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h5>Placeholder: Ratings</h5>"
+
+/***/ }),
+
+/***/ "./ClientApp/app/store/ratings.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RatingsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var RatingsComponent = /** @class */ (function () {
+    function RatingsComponent() {
+    }
+    RatingsComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: "store-ratings",
+            template: __webpack_require__("./ClientApp/app/store/ratings.component.html")
+        })
+    ], RatingsComponent);
+    return RatingsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./ClientApp/app/store/store.module.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -479,7 +687,12 @@ var ProductSelectionComponent = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StoreModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__productSelection_component__ = __webpack_require__("./ClientApp/app/store/productSelection.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cartSummary_component__ = __webpack_require__("./ClientApp/app/store/cartSummary.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__categoryFilter_component__ = __webpack_require__("./ClientApp/app/store/categoryFilter.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pagination_component__ = __webpack_require__("./ClientApp/app/store/pagination.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__productList_component__ = __webpack_require__("./ClientApp/app/store/productList.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ratings_component__ = __webpack_require__("./ClientApp/app/store/ratings.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__productSelection_component__ = __webpack_require__("./ClientApp/app/store/productSelection.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -488,21 +701,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 
 
-//import { CartSummaryComponent } from "./cartSummary.component";
-//import { CategoryFilterComponent } from "./categoryFilter.component";
-//import { PaginationComponent } from "./pagination.component";
-//import { ProductListComponent } from "./productList.component";
-//import { RatingsComponent } from "./ratings.component";
+
+
+
+
+
 
 var StoreModule = /** @class */ (function () {
     function StoreModule() {
     }
     StoreModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            //declarations: [CartSummaryComponent, CategoryFilterComponent, PaginationComponent, ProductListComponent, RatingsComponent, ProductSelectionComponent],
-            declarations: [__WEBPACK_IMPORTED_MODULE_2__productSelection_component__["a" /* ProductSelectionComponent */]],
+            declarations: [__WEBPACK_IMPORTED_MODULE_2__cartSummary_component__["a" /* CartSummaryComponent */], __WEBPACK_IMPORTED_MODULE_3__categoryFilter_component__["a" /* CategoryFilterComponent */], __WEBPACK_IMPORTED_MODULE_4__pagination_component__["a" /* PaginationComponent */], __WEBPACK_IMPORTED_MODULE_5__productList_component__["a" /* ProductListComponent */], __WEBPACK_IMPORTED_MODULE_6__ratings_component__["a" /* RatingsComponent */], __WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]],
             imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */]],
-            exports: [__WEBPACK_IMPORTED_MODULE_2__productSelection_component__["a" /* ProductSelectionComponent */]]
+            exports: [__WEBPACK_IMPORTED_MODULE_7__productSelection_component__["a" /* ProductSelectionComponent */]]
         })
     ], StoreModule);
     return StoreModule;

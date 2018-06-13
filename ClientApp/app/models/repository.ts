@@ -92,7 +92,7 @@ export class Repository {
             .subscribe(response => {
                 console.clear();
                 console.log(">>>>>> HERE");
-                this.getProducts()
+                this.getProducts();
             });
     }
 
