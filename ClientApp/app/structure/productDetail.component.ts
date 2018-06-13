@@ -9,12 +9,15 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class ProductDetailComponent {
 
-    constructor(private repo: Repository, router: Router, activeRoute: ActivatedRoute) {
+    constructor(private repo: Repository,
+        router: Router,
+        activeRoute: ActivatedRoute) {
+
         let id = Number.parseInt(activeRoute.snapshot.params["id"]);
         if (id) {
             this.repo.getProduct(id);
         } else {
-            router.navigateByUrl("/")
+            router.navigateByUrl("/");
         }
     }
 

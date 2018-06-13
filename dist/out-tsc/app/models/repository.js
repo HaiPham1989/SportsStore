@@ -13,8 +13,8 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 var configClasses_repository_1 = require("./configClasses.repository");
-var productsUrl = "api/products";
-var suppliersUrl = "api/suppliers";
+var productsUrl = "/api/products";
+var suppliersUrl = "/api/suppliers";
 var Repository = /** @class */ (function () {
     function Repository(http) {
         this.http = http;
@@ -26,9 +26,8 @@ var Repository = /** @class */ (function () {
     }
     Repository.prototype.getProduct = function (id) {
         var _this = this;
-        this.sendRequest(http_1.RequestMethod.Get, productsUrl + "/" + id).subscribe(function (response) {
-            _this.product = response;
-        });
+        this.sendRequest(http_1.RequestMethod.Get, productsUrl + "/" + id)
+            .subscribe(function (response) { return _this.product = response; });
     };
     Repository.prototype.getProducts = function () {
         var _this = this;
@@ -39,22 +38,23 @@ var Repository = /** @class */ (function () {
         if (this.filter.search) {
             url += "&search=" + this.filter.search;
         }
-        this.sendRequest(http_1.RequestMethod.Get, url).subscribe(function (response) { return _this.products = response; });
+        this.sendRequest(http_1.RequestMethod.Get, url)
+            .subscribe(function (response) { return _this.products = response; });
     };
     Repository.prototype.getSuppliers = function () {
         var _this = this;
-        this.sendRequest(http_1.RequestMethod.Get, suppliersUrl).subscribe(function (response) { return _this.suppliers = response; });
+        this.sendRequest(http_1.RequestMethod.Get, suppliersUrl)
+            .subscribe(function (response) { return _this.suppliers = response; });
     };
     Repository.prototype.createProduct = function (prod) {
         var _this = this;
         var data = {
-            name: prod.name,
-            category: prod.category,
-            description: prod.description,
-            price: prod.price,
+            name: prod.name, category: prod.category,
+            description: prod.description, price: prod.price,
             supplier: prod.supplier ? prod.supplier.supplierId : 0
         };
-        this.sendRequest(http_1.RequestMethod.Post, productsUrl, data).subscribe(function (response) {
+        this.sendRequest(http_1.RequestMethod.Post, productsUrl, data)
+            .subscribe(function (response) {
             prod.productId = response;
             _this.products.push(prod);
         });
@@ -62,11 +62,10 @@ var Repository = /** @class */ (function () {
     Repository.prototype.createProductAndSupplier = function (prod, supp) {
         var _this = this;
         var data = {
-            name: supp.name,
-            city: supp.city,
-            state: supp.state
+            name: supp.name, city: supp.city, state: supp.state
         };
-        this.sendRequest(http_1.RequestMethod.Post, suppliersUrl, data).subscribe(function (response) {
+        this.sendRequest(http_1.RequestMethod.Post, suppliersUrl, data)
+            .subscribe(function (response) {
             supp.supplierId = response;
             prod.supplier = supp;
             _this.suppliers.push(supp);
@@ -78,43 +77,51 @@ var Repository = /** @class */ (function () {
     Repository.prototype.replaceProduct = function (prod) {
         var _this = this;
         var data = {
-            name: prod.name,
-            category: prod.category,
-            description: prod.description,
-            price: prod.price,
+            name: prod.name, category: prod.category,
+            description: prod.description, price: prod.price,
             supplier: prod.supplier ? prod.supplier.supplierId : 0
         };
-        this.sendRequest(http_1.RequestMethod.Put, productsUrl + "/" + prod.productId, data).subscribe(function (response) { return _this.getProducts(); });
-    };
-    Repository.prototype.replaceSupplier = function (supp) {
-        var _this = this;
-        var data = {
-            name: supp.name,
-            city: supp.city,
-            state: supp.state
-        };
-        this.sendRequest(http_1.RequestMethod.Put, suppliersUrl + "/" + supp.supplierId, data).subscribe(function (response) { return _this.getProducts(); });
+        this.sendRequest(http_1.RequestMethod.Put, productsUrl + "/" + prod.productId, data)
+            .subscribe(function (response) { return _this.getProducts(); });
     };
     Repository.prototype.updateProduct = function (id, changes) {
         var _this = this;
         var patch = [];
-        changes.forEach(function (value, key) { return patch.push({
-            op: "replace", path: key, value: value
-        }); });
-        this.sendRequest(http_1.RequestMethod.Patch, productsUrl + "/" + id, patch).subscribe(function (response) { return _this.getProducts(); });
+        changes.forEach(function (value, key) {
+            return patch.push({ op: "replace", path: key, value: value });
+        });
+        this.sendRequest(http_1.RequestMethod.Patch, productsUrl + "/" + id, patch)
+            .subscribe(function (response) {
+            console.clear();
+            console.log(">>>>>> HERE");
+            _this.getProducts();
+        });
+    };
+    Repository.prototype.replaceSupplier = function (supp) {
+        var _this = this;
+        var data = {
+            name: supp.name, city: supp.city, state: supp.state
+        };
+        this.sendRequest(http_1.RequestMethod.Put, suppliersUrl + "/" + supp.supplierId, data)
+            .subscribe(function (response) { return _this.getProducts(); });
     };
     Repository.prototype.deleteProduct = function (id) {
         var _this = this;
-        this.sendRequest(http_1.RequestMethod.Delete, productsUrl + "/" + id).subscribe(function (response) { return _this.getProducts(); });
+        this.sendRequest(http_1.RequestMethod.Delete, productsUrl + "/" + id)
+            .subscribe(function (response) { return _this.getProducts(); });
     };
     Repository.prototype.deleteSupplier = function (id) {
         var _this = this;
-        this.sendRequest(http_1.RequestMethod.Delete, suppliersUrl + "/" + id).subscribe(function (response) { return _this.getSuppliers(); });
+        this.sendRequest(http_1.RequestMethod.Delete, suppliersUrl + "/" + id)
+            .subscribe(function (response) {
+            _this.getProducts();
+            _this.getSuppliers();
+        });
     };
     Repository.prototype.sendRequest = function (verb, url, data) {
-        return this.http.request(new http_1.Request({ method: verb, url: url, body: data })).map(function (response) {
-            return response.headers.get("Content-Length") != "0" ? response.json() : null;
-        });
+        return this.http.request(new http_1.Request({
+            method: verb, url: url, body: data
+        })).map(function (response) { return response.json(); });
     };
     Object.defineProperty(Repository.prototype, "filter", {
         get: function () {

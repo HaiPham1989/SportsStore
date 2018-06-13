@@ -5,10 +5,12 @@ import { Router } from "@angular/router";
 
 @Component({
     selector: "product-table",
-    templateUrl: "./productTable.component.html"
+    templateUrl: "productTable.component.html"
 })
 export class ProductTableComponent {
-    constructor(private repo: Repository, private router: Router) { }
+
+    constructor(private repo: Repository,
+        private router: Router) { }
 
     get products(): Product[] {
         return this.repo.products;

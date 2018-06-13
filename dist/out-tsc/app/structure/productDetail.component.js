@@ -35,7 +35,9 @@ var ProductDetailComponent = /** @class */ (function () {
             selector: "product-detail",
             templateUrl: "productDetail.component.html"
         }),
-        __metadata("design:paramtypes", [repository_1.Repository, router_1.Router, router_1.ActivatedRoute])
+        __metadata("design:paramtypes", [repository_1.Repository,
+            router_1.Router,
+            router_1.ActivatedRoute])
     ], ProductDetailComponent);
     return ProductDetailComponent;
 }());

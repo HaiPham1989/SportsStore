@@ -31,9 +31,10 @@ var ProductTableComponent = /** @class */ (function () {
     ProductTableComponent = __decorate([
         core_1.Component({
             selector: "product-table",
-            templateUrl: "./productTable.component.html"
+            templateUrl: "productTable.component.html"
         }),
-        __metadata("design:paramtypes", [repository_1.Repository, router_1.Router])
+        __metadata("design:paramtypes", [repository_1.Repository,
+            router_1.Router])
     ], ProductTableComponent);
     return ProductTableComponent;
 }());
