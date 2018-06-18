@@ -1,0 +1,20 @@
+﻿<div class="navbar bg-inverse ">
+    <a class="navbar-brand text-white">SPORTS STORE</a>
+</div>
+
+<h2 class="text-center mt-1">Step 1: Your Details</h2>
+<form novalidate #detailsForm="ngForm">
+    <div class="form-group">
+        <label>Name</label>
+        <input #name="ngModel" name="name" class="form-control" [(ngModel)]="order.address" required/>
+        <div *ngIf="address.invalid" class="text-danger">
+            Please enter your address
+        </div>
+    </div>
+    <div class="text-center pt-2">
+        <button class="btn btn-outline-primary" routerLink="/cart">Back</button>
+        <button class="btn btn-danger" [disabled]="detailForm.invalid" routerLink="/checkout/step2">
+            Next
+        </button>
+    </div>
+</form>

@@ -27,6 +27,7 @@ namespace SportsStore
         {
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration["Data:Products:ConnectionString"]));
+
             services.AddMvc().AddJsonOptions(
                 opts =>
                 {
@@ -34,6 +35,21 @@ namespace SportsStore
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 }
             );
+
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString =
+                    Configuration["Data:Products:ConnectionString"];
+                options.SchemaName = "dbo";
+                options.TableName = "SessionData";
+            });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "SportsStore.Session";
+                options.IdleTimeout = System.TimeSpan.FromHours(48);
+                options.Cookie.HttpOnly = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +62,7 @@ namespace SportsStore
             });
 
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

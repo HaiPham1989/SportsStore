@@ -7,4 +7,17 @@ import { Repository } from "../models/repository";
 })
 export class CategoryFilterComponent {
     constructor(private repo: Repository) { }
+
+    get categories(): string[] {
+        return this.repo.categories;
+    }
+
+    get currentCategory(): string {
+        return this.repo.filter.category;
+    }
+
+    setCurrentCategory(newCategory: string) {
+        this.repo.filter.category = newCategory;
+        this.repo.getProducts();
+    }
 }

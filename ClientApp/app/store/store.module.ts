@@ -6,10 +6,13 @@ import { PaginationComponent } from "./pagination.component";
 import { ProductListComponent } from "./productList.component";
 import { RatingsComponent } from "./ratings.component";
 import { ProductSelectionComponent } from "./productSelection.component";
+import { CartDetailComponent } from "./cartDetail.component";
+import { RouterModule } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
-    declarations: [CartSummaryComponent, CategoryFilterComponent, PaginationComponent, ProductListComponent, RatingsComponent, ProductSelectionComponent],
-    imports: [BrowserModule],
+    declarations: [CartSummaryComponent, CategoryFilterComponent, PaginationComponent, ProductListComponent, RatingsComponent, ProductSelectionComponent, CartDetailComponent],
+    imports: [BrowserModule, RouterModule, FormsModule],
     exports: [ProductSelectionComponent]
 })
 export class StoreModule { }

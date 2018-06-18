@@ -15,11 +15,15 @@ require("rxjs/add/operator/map");
 var configClasses_repository_1 = require("./configClasses.repository");
 var productsUrl = "/api/products";
 var suppliersUrl = "/api/suppliers";
+var ordersUrl = "api/orders";
 var Repository = /** @class */ (function () {
     function Repository(http) {
         this.http = http;
         this.filterObject = new configClasses_repository_1.Filter();
+        this.paginationObject = new configClasses_repository_1.Pagination();
         this.suppliers = [];
+        this.categories = [];
+        this.orders = [];
         //this.filter.category = "soccer";
         this.filter.related = true;
         this.getProducts();
@@ -38,8 +42,13 @@ var Repository = /** @class */ (function () {
         if (this.filter.search) {
             url += "&search=" + this.filter.search;
         }
+        url += "&metadata=true";
         this.sendRequest(http_1.RequestMethod.Get, url)
-            .subscribe(function (response) { return _this.products = response; });
+            .subscribe(function (response) {
+            _this.products = response.data;
+            _this.categories = response.categories;
+            _this.pagination.currentPage = 1;
+        });
     };
     Repository.prototype.getSuppliers = function () {
         var _this = this;
@@ -118,6 +127,26 @@ var Repository = /** @class */ (function () {
             _this.getSuppliers();
         });
     };
+    Repository.prototype.getOrders = function () {
+        var _this = this;
+        this.sendRequest(http_1.RequestMethod.Get, ordersUrl).subscribe(function (data) { return _this.orders = data; });
+    };
+    Repository.prototype.createOrder = function (order) {
+        this.sendRequest(http_1.RequestMethod.Post, ordersUrl, {
+            name: order.name,
+            address: order.address,
+            payment: order.payment,
+            products: order.products
+        }).subscribe(function (data) {
+            order.orderconfirmation = data;
+            order.cart.clear();
+            order.clear();
+        });
+    };
+    Repository.prototype.shipOrder = function (order) {
+        var _this = this;
+        this.sendRequest(http_1.RequestMethod.Post, ordersUrl + "/" + order.orderId).subscribe(function (r) { return _this.getOrders(); });
+    };
     Repository.prototype.sendRequest = function (verb, url, data) {
         return this.http.request(new http_1.Request({
             method: verb, url: url, body: data
@@ -130,6 +159,19 @@ var Repository = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Repository.prototype, "pagination", {
+        get: function () {
+            return this.paginationObject;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Repository.prototype.storeSessionData = function (dataType, data) {
+        return this.sendRequest(http_1.RequestMethod.Post, "api/session/" + dataType, data).subscribe(function (response) { });
+    };
+    Repository.prototype.getSessionData = function (dataType) {
+        return this.sendRequest(http_1.RequestMethod.Get, "api/session/" + dataType);
+    };
     Repository = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
