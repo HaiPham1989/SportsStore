@@ -4,3 +4,5 @@ Project build by .NetCore and Angular
 # Thay doi cua master
 #abc xyz
 
+#Continue Change to test rebase
+
